@@ -7,13 +7,12 @@ import 'package:test_app/global_widget.dart/custom_appbar.dart';
 import 'package:test_app/global_widget.dart/cutsom_btn.dart';
 import 'package:test_app/global_widget.dart/text.dart';
 import 'package:test_app/global_widget.dart/text_field.dart';
-import 'package:test_app/modules/sign_in/view/sign_in_view.dart';
-import 'package:test_app/modules/sign_up/controller/sign_up_controller.dart';
+import 'package:test_app/modules/sign_in/controller/sign_in_controller.dart';
 
-class SignUpView extends StatelessWidget {
-  SignUpView({Key? key}) : super(key: key);
+class SignINView extends StatelessWidget {
+  SignINView({Key? key}) : super(key: key);
 
-  SignUpController signUpController = SignUpController();
+  SignINController signINController = SignINController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -21,7 +20,7 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar('Sign Up'),
+      appBar: customAppBar('Sign In'),
       body: Padding(
         padding: const EdgeInsets.only(left: 34, right: 34),
         child: SingleChildScrollView(
@@ -37,63 +36,6 @@ class SignUpView extends StatelessWidget {
                   fontSize: 20,
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(
-                            text: "First Name",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            controller: signUpController.firstNameController,
-                            text: "First Name",
-                            valid: (value) {
-                              if (value!.isEmpty) {
-                                return "First Name cannot be empty";
-                              }
-                              if (value.contains(RegExp(r'\d'))) {
-                                return "First Name should not contain numbers";
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(
-                            text: "Last Name",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          const SizedBox(height: 8),
-                          CustomTextField(
-                            controller: signUpController.lastNameController,
-                            text: "Last Name",
-                            valid: (value) {
-                              if (value!.isEmpty) {
-                                return "Last Name cannot be empty";
-                              }
-                              if (value.contains(RegExp(r'\d'))) {
-                                return "Last Name should not contain numbers";
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                 smallSpace,
                 textWidget(
                   text: "Email",
@@ -102,7 +44,7 @@ class SignUpView extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 CustomTextField(
-                  controller: signUpController.emailController,
+                  controller: signINController.emailController,
                   text: "Email",
                   valid: (value) {
                     if (value!.isEmpty) {
@@ -122,7 +64,7 @@ class SignUpView extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 CustomTextField(
-                  controller: signUpController.passwordController,
+                  controller: signINController.passwordController,
                   text: "Password",
                   valid: (value) {
                     if (value!.isEmpty) {
@@ -144,7 +86,7 @@ class SignUpView extends StatelessWidget {
                       mywidth: 0.39,
                       height: 55,
                       onPressed: () {
-                        Get.to(() =>  SignINView());
+                        signINController.signInUser();
                       },
                       child: "Log-in",
                       fontSize: 16,
@@ -159,7 +101,7 @@ class SignUpView extends StatelessWidget {
                       mywidth: 0.39,
                       height: 55,
                       onPressed: () {
-                        signUpController.signUpUser();
+                        // signINController.signUpUser();
                       },
                       child: "Sign-Up",
                       fontSize: 16,

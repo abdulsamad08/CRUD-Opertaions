@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:test_app/data/user_model.dart';
 
 // Function to establish a MySQL connection
 
@@ -24,8 +25,42 @@ class MySql {
     }
   }
 
+Future<List<User>> getUsers() async {
+    final conn = await getConnection();
+  List<User> users = [];
+
+  try {
+    final results = await conn.query('SELECT * FROM users');
+
+    for (var row in results) {
+      final id = row['id'];
+      final firstName = row['first_name'];
+      final lastName = row['last_name'];
+      final userEmail = row['email'];
+      final userPassword = row['password_hash'];
+
+      final user = User(
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: userEmail,
+        password: userPassword,
+      );
+
+      users.add(user);
+    }
+  } catch (e) {
+    print('Error executing query: $e');
+  } finally {
+    await conn.close();
+  }
+
+  return users;
+}
+
+
 // User Model
-  Future<void> insertUser(
+  Future<bool> insertUser(
       String firstName, String lastName, String email, String password) async {
     final connection = await getConnection();
 
@@ -45,11 +80,13 @@ class MySql {
       } else {
         debugPrint('Failed to insert user.');
       }
+      return true;
     } catch (e) {
       debugPrint('Error inserting user: $e');
     } finally {
       connection.close();
     }
+    return false; // Add this line to handle the case where the code execution reaches the end of the block
   }
 
   Future<void> insertProduct(String name, String description, double price,
