@@ -19,7 +19,7 @@ class User {
       firstName: map['first_name'],
       lastName: map['last_name'],
       email: map['email'],
-      password: map['password'],
+      password: map['password_hash'],
     );
   }
 
@@ -29,7 +29,7 @@ class User {
       'first_name': firstName,
       'last_name': lastName,
       'email': email,
-      'password': password,
+      'password_hash': password,
     };
   }
 }

@@ -153,7 +153,9 @@ class SignUpView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(35),
                       mywidth: 0.39,
                       height: 55,
-                      onPressed: () {},
+                      onPressed: () {
+                        signUpController.signUpUser();
+                      },
                       child: "Sign-Up",
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

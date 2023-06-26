@@ -25,31 +25,32 @@ class MySql {
   }
 
 // User Model
-Future<void> insertUser(String firstName, String lastName, String email, String password) async {
-  final connection = await getConnection();
+  Future<void> insertUser(
+      String firstName, String lastName, String email, String password) async {
+    final connection = await getConnection();
 
-  try {
-    const query = '''
-      INSERT INTO users (first_name, last_name, email, password)
+    try {
+      const query = '''
+      INSERT INTO users (first_name, last_name, email, password_hash)
       VALUES (?, ?, ?, ?)
     ''';
 
-    final result = await connection.query(
-      query,
-      [firstName, lastName, email, password],
-    );
+      final result = await connection.query(
+        query,
+        [firstName, lastName, email, password],
+      );
 
-    if (result.affectedRows! > 0) {
-      debugPrint('User inserted successfully!');
-    } else {
-      debugPrint('Failed to insert user.');
+      if (result.affectedRows! > 0) {
+        debugPrint('User inserted successfully!');
+      } else {
+        debugPrint('Failed to insert user.');
+      }
+    } catch (e) {
+      debugPrint('Error inserting user: $e');
+    } finally {
+      connection.close();
     }
-  } catch (e) {
-    debugPrint('Error inserting user: $e');
-  } finally {
-    connection.close();
   }
-}
 
   Future<void> insertProduct(String name, String description, double price,
       int quantity, String category, String imageurl) async {
