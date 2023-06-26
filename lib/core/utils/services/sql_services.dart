@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:test_app/data/product_model.dart';
 
 // Function to establish a MySQL connection
 
@@ -25,6 +24,33 @@ class MySql {
     }
   }
 
+// User Model
+Future<void> insertUser(String firstName, String lastName, String email, String password) async {
+  final connection = await getConnection();
+
+  try {
+    const query = '''
+      INSERT INTO users (first_name, last_name, email, password)
+      VALUES (?, ?, ?, ?)
+    ''';
+
+    final result = await connection.query(
+      query,
+      [firstName, lastName, email, password],
+    );
+
+    if (result.affectedRows! > 0) {
+      debugPrint('User inserted successfully!');
+    } else {
+      debugPrint('Failed to insert user.');
+    }
+  } catch (e) {
+    debugPrint('Error inserting user: $e');
+  } finally {
+    connection.close();
+  }
+}
+
   Future<void> insertProduct(String name, String description, double price,
       int quantity, String category, String imageurl) async {
     final conn = await getConnection();
@@ -47,12 +73,12 @@ class MySql {
     }
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Map<String, dynamic>>> getProducts() async {
     final conn = await getConnection();
 
     try {
       final result = await conn.query('SELECT * FROM products');
-      return result.map((row) => Product.fromJson(row.fields)).toList();
+      return result.map((row) => row.fields).toList();
     } catch (e) {
       debugPrint('Error retrieving products: $e');
       return [];

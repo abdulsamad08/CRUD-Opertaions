@@ -5,7 +5,7 @@ class Product {
   double? price;
   int? quantity;
   String? category;
-  String? image; // New property for the image
+  String? image;
 
   Product({
     this.id,
@@ -14,7 +14,7 @@ class Product {
     this.price,
     this.quantity,
     this.category,
-    this.image, // Initialize the image property
+    this.image,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -25,8 +25,7 @@ class Product {
       price: json['price'],
       quantity: json['quantity'],
       category: json['category'],
-      image: json[
-          'imageurl'], // Assign the value from the JSON to the image property
+      image: json['imageurl'],
     );
   }
 
