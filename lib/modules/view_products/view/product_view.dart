@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:test_app/core/values/app_constant.dart';
 import 'package:test_app/data/product_model.dart';
 import 'package:test_app/global_widget.dart/custom_appbar.dart';
+import 'package:test_app/global_widget.dart/text.dart';
 import 'package:test_app/modules/view_products/controller/product_controller.dart';
 
 class ProductView extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const ProductView({Key? key});
+  const ProductView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,58 +51,66 @@ class ProductView extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.3),
                                   spreadRadius: 2,
                                   blurRadius: 5,
-                                  offset: Offset(0, 2),
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
                             child: ListTile(
-                              // leading: Image.network(product.image ?? ''),
-                              title: Text(
-                                'Name: ${product.name ?? ''}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
+                              leading: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  // Call delete product function
+                                  productController.deleteProduct(product.id);
+                                },
                               ),
+                              title:
+                              textWidget(
+                                        text:
+                                            'Name: ${product.name ?? ''}',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                               
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   smallSpace,
-                                  Text(
-                                    'Description: ${product.description ?? ''}',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[700],
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'Quantity: ${product.quantity?.toString() ?? ''}',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[700],
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'Category: ${product.category ?? ''}',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[700],
-                                    ),
-                                  ),
+                                  textWidget(
+                                        text:
+                                            'Description: ${product.description ?? ''}',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                  
+                                  extrasmallSpace,
+                                    textWidget(
+                                        text:
+                                            'Quantity: ${product.quantity?.toString() ?? ''}',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                  extrasmallSpace,
+                                  textWidget(
+                                        text:
+                                            'Category: ${product.category ?? ''}',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                
                                   smallSpace,
                                   Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      'Price: \$${product.price?.toStringAsFixed(2) ?? ''}',
-                                      style: TextStyle(
+                                      alignment: Alignment.centerRight,
+                                      child: textWidget(
+                                        text:
+                                            'Price: \$${product.price?.toStringAsFixed(2) ?? ''}',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                         color: Colors.green,
-                                      ),
-                                    ),
-                                  ),
+                                      )),
                                   smallSpace,
                                 ],
                               ),

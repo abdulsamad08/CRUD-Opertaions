@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/modules/sign_up/view/sign_up.dart';
-import 'package:test_app/modules/view_products/view/product_view.dart';
 
 void main() {
   runApp(const MyApp());

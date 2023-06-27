@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/core/values/app_constant.dart';
+import 'package:test_app/global_widget.dart/custom_appbar.dart';
 import 'package:test_app/global_widget.dart/cutsom_btn.dart';
 import 'package:test_app/global_widget.dart/text_field.dart';
 import 'package:test_app/modules/add_products/view/controller/add_product_controller.dart';
@@ -15,16 +16,12 @@ class AddProductsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        elevation: 0.0,
-      ),
+      appBar: customAppBar('Add Products'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              
               CustomTextField(
                   text: 'name',
                   controller: addProductsController.nameController),
@@ -41,7 +38,7 @@ class AddProductsView extends StatelessWidget {
                   text: 'category',
                   controller: addProductsController.categoryController),
               mediumSpace,
-                CustomButton(
+              CustomButton(
                 mywidth: 0.4,
                 onPressed: () {
                   addProductsController.selectImage();

@@ -78,7 +78,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               //     const EdgeInsets.symmetric(vertical: 10.0, horizontal: 13),
               isDense: false,
               hintText: widget.text,
-              hintStyle: TextStyle(color: Colors.green, fontSize: 12),
+              hintStyle: const TextStyle(color: Colors.green, fontSize: 12),
               prefixIcon: widget.prefix,
               suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),

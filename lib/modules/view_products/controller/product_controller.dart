@@ -26,4 +26,20 @@ class ProductController extends GetxController {
       isLoading.value = false; // Set isLoading to false in case of an error
     }
   }
+
+  void deleteProduct(int? productId) async {
+    if (productId == null) {
+      // Handle the case where productId is null
+      return;
+    }
+
+    try {
+      await mysql.deleteProduct(productId);
+      products.removeWhere((product) => product.id == productId);
+      Get.snackbar('Success', 'Product deleted successfully!');
+    } catch (e) {
+      debugPrint('Error deleting product: $e');
+      Get.snackbar('Error', 'Failed to delete product.');
+    }
+  }
 }

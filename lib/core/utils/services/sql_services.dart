@@ -125,13 +125,14 @@ class MySql {
     }
   }
 
-  Future<void> updateProduct(int id, String name, double price) async {
+  Future<void> updateProduct(int id, String name, double price, String category,
+      int quantity, String description) async {
     final conn = await getConnection();
 
     try {
       final result = await conn.query(
-        'UPDATE products SET name = ?, price = ? WHERE id = ?',
-        [name, price, id],
+        'UPDATE products SET name = ?, price = ?, category = ?, quantity = ?, description = ? WHERE name = ?',
+        [name, price, category, quantity, description, name],
       );
 
       if (result.affectedRows! > 0) {
