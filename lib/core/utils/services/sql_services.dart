@@ -5,7 +5,7 @@ import 'package:test_app/data/user_model.dart';
 // Function to establish a MySQL connection
 
 class MySql {
-  static String host = "192.168.0.103";
+  static String host = "192.168.0.112";
   static String user = 'root';
   static String db = 'test1';
   static int portid = 3306;
@@ -14,6 +14,7 @@ class MySql {
     var settings = ConnectionSettings(
       host: host,
       port: portid,
+      password: '',
       user: user,
       db: db,
     );
@@ -25,39 +26,38 @@ class MySql {
     }
   }
 
-Future<List<User>> getUsers() async {
+  Future<List<User>> getUsers() async {
     final conn = await getConnection();
-  List<User> users = [];
+    List<User> users = [];
 
-  try {
-    final results = await conn.query('SELECT * FROM users');
+    try {
+      final results = await conn.query('SELECT * FROM users');
 
-    for (var row in results) {
-      final id = row['id'];
-      final firstName = row['first_name'];
-      final lastName = row['last_name'];
-      final userEmail = row['email'];
-      final userPassword = row['password_hash'];
+      for (var row in results) {
+        final id = row['id'];
+        final firstName = row['first_name'];
+        final lastName = row['last_name'];
+        final userEmail = row['email'];
+        final userPassword = row['password_hash'];
 
-      final user = User(
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        email: userEmail,
-        password: userPassword,
-      );
+        final user = User(
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          email: userEmail,
+          password: userPassword,
+        );
 
-      users.add(user);
+        users.add(user);
+      }
+    } catch (e) {
+      debugPrint('Error executing query: $e');
+    } finally {
+      await conn.close();
     }
-  } catch (e) {
-    print('Error executing query: $e');
-  } finally {
-    await conn.close();
+
+    return users;
   }
-
-  return users;
-}
-
 
 // User Model
   Future<bool> insertUser(

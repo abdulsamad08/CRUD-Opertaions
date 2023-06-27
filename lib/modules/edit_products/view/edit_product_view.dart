@@ -7,10 +7,8 @@ import 'package:test_app/global_widget.dart/cutsom_btn.dart';
 import 'package:test_app/global_widget.dart/text_field.dart';
 import 'package:test_app/modules/add_products/view/controller/add_product_controller.dart';
 
-class AddProductsView extends StatelessWidget {
-  AddProductsView({super.key});
-  AddProductsController addProductsController =
-      Get.put(AddProductsController());
+class EditProductsView extends StatelessWidget {
+  EditProductsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,34 +25,24 @@ class AddProductsView extends StatelessWidget {
               
               CustomTextField(
                   text: 'name',
-                  controller: addProductsController.nameController),
+                  
+                  
+                  ),
               CustomTextField(
                   text: 'description',
-                  controller: addProductsController.descriptionController),
+                ),
               CustomTextField(
-                  text: 'price',
-                  controller: addProductsController.priceController),
+                  text: 'price'),
               CustomTextField(
-                  text: 'quantity',
-                  controller: addProductsController.quantityController),
+                  text: 'quantity'),
               CustomTextField(
-                  text: 'category',
-                  controller: addProductsController.categoryController),
+                  text: 'category'),
               mediumSpace,
-                CustomButton(
-                mywidth: 0.4,
-                onPressed: () {
-                  addProductsController.selectImage();
-                },
-                child: 'Select Image',
-                gradientColors: [Colors.green.shade400, Colors.greenAccent],
-                color: Colors.green,
-              ),
+               
               mediumSpace,
               CustomButton(
                   mywidth: 0.4,
                   onPressed: () {
-                    addProductsController.addProduct();
                   },
                   child: 'Add Products',
                   gradientColors: [Colors.green.shade400, Colors.greenAccent],

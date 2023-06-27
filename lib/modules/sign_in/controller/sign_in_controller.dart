@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/core/utils/services/sql_services.dart';
 import 'package:test_app/data/user_model.dart';
+import 'package:test_app/modules/add_or_edit_product_view.dart';
 
 class SignINController extends GetxController {
   MySql mysql = MySql();
@@ -18,6 +19,7 @@ class SignINController extends GetxController {
 
     if (isMatched) {
       Get.snackbar('Success', 'Sign in successful!');
+      Get.to(AddOrEditProduct());
     } else {
       // Show an error snackbar
       Get.snackbar('Error', 'Invalid email or password');
